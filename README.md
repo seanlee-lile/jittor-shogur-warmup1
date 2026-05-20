@@ -2,10 +2,13 @@
 
 ## 1. 环境安装
 
-- Python >= 3.7
+- Python >= 3.10
 - 安装依赖：
-  pip install jittor jittor_geometric numpy
-- 或使用 requirements.txt (内容: jittor>=1.3.0, jittor_geometric, numpy)
+- python -m pip install git+https://github.com/Jittor/jittor.git
+- pip install requirements.txt
+- git clone https://github.com/AlgRUC/JittorGeometric.git
+- cd JittorGeometric
+- pip install .
 
 ## 2. 数据准备
 
@@ -20,20 +23,18 @@
 运行命令：
 python gcn.py
 
-超参数已内置：epochs=200, lr=0.01, hidden_dim=256, dropout=0.8
+超参数已内置：epochs=200, lr=0.01, hidden_dim=256, dropout=0.8，已经设置jt.misc.set_global_seed(42)
+由于是热身赛，无需修改超参数，省略了config文件和seed设置
+
 
 ## 4. 评测/推理
 
 推理与训练合并执行，训练结束后自动生成 result.json：
 python gcn.py
 
-如需单独加载模型进行推理，可修改代码添加 checkpoint 保存与加载逻辑（当前版本未实现）
 
 ## 5. 结果说明
 
-- 指标：分类准确率（Accuracy）= 正确预测节点数 / 总节点数
+- 指标：分类准确率（Accuracy）= 正确预测节点数 / 总节点数 =0.808
 - 计算方式：(pred == data.y[mask]).float().mean()
-- 线上提交成绩可能与本地验证集存在差异，可能原因：
-  - 本地验证集划分与线上测试集不同
-  - 随机种子或环境差异导致训练波动
-  - 未保存最佳模型，使用最终 epoch 输出
+
